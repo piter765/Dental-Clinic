@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments</title>
+    <link
+      rel="stylesheet"
+      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/doctor/doctorsAppointmentsStyle.css" />
+    <link rel="stylesheet" href="/doctor/adminsPanelStyle.css" />
+    <link rel="stylesheet" href="/doctor/bookAppointmentStyle.css" />
+    <link rel="stylesheet" href="/doctor/adminAppointmentsStyle.css" />
+    <script src="/doctor/sweetalert2@11.js"></script>
+</head>
+<body>
+    <main>
+        <div class="recent-grid">
+          <div class="projects">
+            <div class="card-header">
+              <h2>Podsumuj wizyte</h2>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <span>Opis wizyty: <input id="opis" type="text"></span> <br> <br>
+                <span>Zuzyte przedmioty: <input id="zuz" type="text"></span><br> <br>
+                <div class="form-element">
+                <button onclick="submit()">Wyslij</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+</body>
+<script>
+    async function postData(met = '', url = '', data = {}) {
+    const response = await fetch(url, {
+        method: met,
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+    });
+    return response.json();
+}
+
+function submit(){
+    console.log('sub')
+    let loc = String(window.location.href)
+    let elem = loc.split('/')
+    let idv = elem.at(-1)
+    let op = document.getElementById('opis').value
+    let zuz = document.getElementById('zuz').value
+    postData('post', '/doctor/addsubmitappo', {
+        id: idv,
+        desc: op,
+        zuz: zuz
+    })
+        .then(data => {
+            if (data.message == 'ok') {
+                Swal.fire({
+                    title: 'Visit submitted!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                }).then(function () {
+                    window.close()
+                });
+
+            }else{
+                Swal.fire({
+                    title: 'Something gone wrong',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                }).then(function () {
+                    window.close()
+                });
+            }
+        })
+}</script>
+</html>

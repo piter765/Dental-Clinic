@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Appointments</title>
+  <link rel="stylesheet"
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+  <link rel="stylesheet" href="bookAppointmentStyle.css" />
+  <link rel="stylesheet" href="adminAppointmentsStyle.css" />
+  <script src="sweetalert2@11.js"></script>
+</head>
+
+<body>
+  <input type="checkbox" id="nav-toggle" />
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <h2><span>Dentacare</span></h2>
+    </div>
+
+    <div class="sidebar-menu">
+      <ul>
+        <li>
+          <a href="" class="active"><span class="las la-shopping-bag"></span>
+            <span>Appointments</span></a>
+        </li>
+        <li>
+          <a href="/patient/info" ><span class="las la-shopping-bag"></span>
+            <span>MyInfo</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="main-content">
+    <header>
+      <h2>
+        <label for="nav-toggle">
+          <span class="las la-bars"></span>
+        </label>
+        Dashboard
+      </h2>
+
+
+      <div class="user-wrapper">
+        <img src="../images/user-icon.png" width="40px" height="40px" alt="" />
+        <div>
+          <h4 id="setnick"></h4>
+          <small>User</small>
+        </div>
+        <div>
+          <button id="logout" class="logout_button" onclick="logout()">Logout<span class="las la-arrow-right">
+            </span></button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="recent-grid">
+        <div class="projects">
+          <div class="card-header">
+            <h2>Appointments</h2>
+            <button id="show-appointment">Book Appointment<span class="las la-arrow-right"> </span></button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table width="100%" id="visittable">
+                <thead>
+                  <tr>
+                    <td>Patient</td>
+                    <td>Service</td>
+                    <td>Hour</td>
+                    <td>Cancel Appointment</td>
+                  </tr>
+                </thead>
+                <tbody id="my_visits">
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!----code for booking form----->
+
+  <div class="popup" id="pop-up">
+    <div class="close-btn">&times;</div>
+    <div class="form">
+      <h2>Book Appointment</h2>
+      <div class="form-element">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter name" />
+      </div>
+      <div class="form-element">
+        <label for="email">Email</label>
+        <input type="text" id="email" placeholder="Enter email" />
+      </div>
+      <div class="form-element">
+        <label for="date">Date</label>
+        <input type="date" id="date" placeholder="Enter date" />
+      </div>
+      <div class="form-element">
+        <form>
+          <label for="service">Doctor</label>
+          <select name="doctor" id="doctor" onchange="validDoctorTIme()">
+            <option value="1">Jan Kowalski</option>
+            <option value="2">Anna Kowalczyk</option>
+            <option value="3">Michał Testowy</option>
+          </select>
+        </form>
+      </div>
+      <div class="form-element">
+        <label for="time">Time</label>
+        <input type="time" id="time" placeholder="Enter time" />
+      </div>
+      <div class="form-element">
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" placeholder="Enter phone number" />
+      </div>
+      <div class="form-element">
+        <label for="service">Service</label>
+        <select name="service" id="service">
+          <option value="tw">teeth whitening</option>
+          <option value="ic">Implant consultation</option>
+          <option value="rc">Removing cavity</option>
+          <option value="cc">Consultation</option>
+          <option value="c">Canal</option>
+          <option value="rot">Removal of a tooth</option>
+        </select>
+      </div>
+      <div class="form-element">
+        <button onclick="submitAppointment()">Book Appointment</button>
+      </div>
+    </div>
+  </div>
+  <script src="patientscript.js"></script>
+</body>
+
+</html>
